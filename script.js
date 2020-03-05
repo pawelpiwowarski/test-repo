@@ -1,32 +1,46 @@
-let arr = [];
-let newArr = [];
-function getgroups() {
-  let { length } = arr;
-  let { value: groupSize } = document.getElementById("group");
-  let groupsCount = Math.ceil(length / groupSize);
+const players = [];
 
-  document.getElementById("grupyoutput").innerHTML =
-    "ilość grup " + groupsCount + "<br>";
+const newPlayerInput = document.getElementById("newPlayerInput");
+const newPlayerBtn = document.getElementById("newPlayerBtn");
+const groupSizeInput = document.getElementById("groupSizeInput");
+const createGroupsBtn = document.getElementById("createGroupsBtn");
+
+const playersList = document.getElementById("playersList");
+const groupsList = document.getElementById("groupsList");
+
+const createGroups = () => {
+  const { length } = players;
+  const { value: groupSize } = groupSizeInput;
+
+  const groupsCount = Math.ceil(length / groupSize);
+
+  groupsList.innerHTML = `Liczba grup ${groupsCount}<br>`;
 
   for (let j = 1; j < groupsCount + 1; j++) {
-    document.getElementById("grupyoutput").innerHTML += " Grupa " + j + "<br>";
+    groupsList.innerHTML += ` Grupa ${j}<br>`;
     for (let i = groupSize * j - groupSize; i < groupSize * j; i++) {
-      document.getElementById("grupyoutput").innerHTML += arr[i]
-        ? arr[i] + "<br>"
-        : "";
+      groupsList.innerHTML += players[i] ? `${players[i]}<br>` : "";
     }
   }
-}
-function getplayers() {
-  let first = document.getElementById("player").value;
+};
 
-  arr.push(first);
-  let pval = "";
-  for (var i = 0; i < arr.length; i++) {
-    pval = pval + arr[i] + "<br>";
-  }
+const addPlayer = () => {
+  const { value: player } = newPlayerInput;
 
-  document.getElementById("zawodnicy").innerHTML = arr;
-}
+  players.push(player);
+};
 
-document.querySelector("#grupy").addEventListener("click", getgroups);
+const renderPlayers = () => {
+  playersList.innerHTML = "<ul>";
+  players.map(player => (playersList.innerHTML += `<li>${player}</li>`));
+  playersList.innerHTML += "</ul>";
+};
+
+newPlayerBtn.addEventListener("click", () => {
+  addPlayer();
+  renderPlayers();
+});
+
+createGroupsBtn.addEventListener("click", () => {
+  createGroups();
+});
