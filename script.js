@@ -14,10 +14,10 @@ const createGroups = () => {
 
   const groupsCount = Math.ceil(length / groupSize);
 
-  groupsList.innerHTML = `Liczba grup ${groupsCount}<br>`;
+  groupsList.innerHTML = `<p class="grupy2">Liczba grup ${groupsCount}<br></p>`;
 
   for (let j = 1; j < groupsCount + 1; j++) {
-    groupsList.innerHTML += ` Grupa ${j}<br>`;
+    groupsList.innerHTML += `<p class="grupy"> Grupa ${j}<br></p>`;
     for (let i = groupSize * j - groupSize; i < groupSize * j; i++) {
       groupsList.innerHTML += players[i] ? `${players[i]}<br>` : "";
     }

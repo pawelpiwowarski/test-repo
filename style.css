@@ -1,3 +1,13 @@
 body {
   background-color: aqua;
+  font-family: Arial;
+}
+.grupy {
+font-weight: bold;
+color: red;
+}
+
+.grupy2 {
+font-weight: bold;
+color: green;
 }
