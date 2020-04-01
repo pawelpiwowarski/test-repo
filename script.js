@@ -8,20 +8,54 @@ const createGroupsBtn = document.getElementById("createGroupsBtn");
 const playersList = document.getElementById("playersList");
 const groupsList = document.getElementById("groupsList");
 
+
+
+const txtdata = document.querySelector('input[type="file"]');
+
+
+
+
 const createGroups = () => {
+
   const { length } = players;
   const { value: groupSize } = groupSizeInput;
+if (groupSize <=0)
+{
+	alert ("Rozmiar grupy nie może być mniejszy od zera ");
+}
+else
+{
 
   const groupsCount = Math.ceil(length / groupSize);
 
-  groupsList.innerHTML = `<p class="grupy2">Liczba grup ${groupsCount}<br></p>`;
+  let  currentIndex = players.length, temporaryValue, randomIndex;
 
-  for (let j = 1; j < groupsCount + 1; j++) {
+  // tablica players jest mieszana w porządku losowym 
+  while (0 !== currentIndex) {
+
+ 
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+   
+    temporaryValue = players[currentIndex];
+    players[currentIndex] = players[randomIndex];
+    players[randomIndex] = temporaryValue;
+  }
+
+ //tutaj tablica jest wyświetlana z podziałem na zadane grupy 
+
+   for (let j = 1; j < groupsCount + 1; j++) {
     groupsList.innerHTML += `<p class="grupy"> Grupa ${j}<br></p>`;
     for (let i = groupSize * j - groupSize; i < groupSize * j; i++) {
       groupsList.innerHTML += players[i] ? `${players[i]}<br>` : "";
     }
   }
+
+
+
+
+}
 };
 
 const addPlayer = () => {
