@@ -1,4 +1,4 @@
-const players = [];
+
 
 const newPlayerInput = document.getElementById("newPlayerInput");
 const newPlayerBtn = document.getElementById("newPlayerBtn");
@@ -10,20 +10,26 @@ const groupsList = document.getElementById("groupsList");
 
 
 
-const txtdata = document.querySelector('input[type="file"]');
+const txtdataload = document.querySelector('input[type="file"]');
 
 
 
 
-const createGroups = () => {
 
-  const { length } = players;
+const createGroups = (players) => {
+  console.log(txtdataload.playersx);
+  addPlayer.playersx = txtdataload.playersx;
+  let { length } = players;
+
   const { value: groupSize } = groupSizeInput;
+
+
 if (groupSize <=0)
 {
 	alert ("Rozmiar grupy nie może być mniejszy od zera ");
 }
-else
+
+else 
 {
 
   const groupsCount = Math.ceil(length / groupSize);
@@ -58,23 +64,43 @@ else
 }
 };
 
+let playersManualarr = [];
 const addPlayer = () => {
+  
   const { value: player } = newPlayerInput;
-
-  players.push(player);
-};
-
-const renderPlayers = () => {
+  playersManualarr.push(player);
   playersList.innerHTML = "<ul>";
-  players.map(player => (playersList.innerHTML += `<li>${player}</li>`));
+  playersManualarr.map(player => (playersList.innerHTML += `<li>${player}</li>`));
   playersList.innerHTML += "</ul>";
+  addPlayer.playersx = playersManualarr;
+
 };
+
+
 
 newPlayerBtn.addEventListener("click", () => {
   addPlayer();
-  renderPlayers();
 });
 
 createGroupsBtn.addEventListener("click", () => {
-  createGroups();
+  groupsList.innerHTML = "";
+  createGroups(playersManualarr);
+
 });
+
+txtdataload.addEventListener('change', (e) => {
+const reader = new FileReader ()
+reader.onload = () => {
+const lines = reader.result.split('\n').map( (line) => {
+let players2 = line.split(/[' ',;:]/);
+txtdataload.playersx = players2;
+groupsList.innerHTML = "";
+createGroups(players2);
+
+
+})
+
+}
+reader.readAsText(txtdataload.files[0])
+}, false)
+
